@@ -1,0 +1,8 @@
+#ignoring virtualenv
+env/
+#ignoring config db etc
+config.py
+
+.idea/
+
+*.pyc 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hitesh Sethi - CrowdFire</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <style type="text/css">
+        /* Styles go here */
+        .loading-icon {
+          position: relative;
+          width: 20px;
+          height: 20px; 
+          margin:50px auto;
+          -webkit-animation: fa-spin 2s infinite linear;
+          animation: fa-spin 2s infinite linear;
+        }
+
+        .loading-icon:before {
+          content: "\f110";
+          font-family: FontAwesome;
+          font-size:20px;
+          position: absolute;
+          top: 0; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Twitter Best Time/Day</h2>
+    
+    <div id='loadingmessage' style='display: none;'>
+      <div class="loading-icon"></div>
+    </div>
+    <div class="row thumbnail">
+        <div class="col-md-12">
+            <div id="result"></div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script>
+
+    baseUrl = window.location.origin;
+
+    $("#search-btn").click(function(){
+        $('#loadingmessage').show();
+        var king = $("input[name='king']").val();
+        var name = $("input[name='name']").val();
+        var location = $("input[name='location']").val();
+        var type = $("input[name='type']").val();
+        var params = {"king":king,"name":name,"location":location,"type":type};
+
+        $.get(baseUrl+"/search?"+jQuery.param(params), function(data, status){
+            if(status == false || data.success == false){
+                $("#result").html("<h3>Some Problem Occured</h3>");
+                return;
+            }
+            resultData = '<ol>';
+            $.each(data.data,function( index, dataValue ) {
+                temp = '<ul>'
+                for (var key in dataValue) {
+                    // consodataValue[key]);/
+                   temp += "<li>"+" <i>"+key+ " </i>, <b>"+dataValue[key]+"</b></li>";
+                }
+                temp += "</ul>"
+                resultData += "<li>"+ temp +"</li>";
+            });
+            resultData += "</ol>"
+            $("#result").html(resultData);
+            $('#loadingmessage').hide();
+        });
+    });
+</script>
+</html>

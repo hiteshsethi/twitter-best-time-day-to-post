@@ -1,0 +1,18 @@
+class Config:
+
+	host = '0.0.0.0' #host name of server you want to run
+	port = 5000 #port num of server you want to run
+
+	#mysql configuration for your database
+	mysqlConfig = dict(
+		host = '127.0.0.1',
+		port = 3306,
+		user = 'root',
+		password = '',
+		database = 'hackerearth',
+		connect_timeout = 30,
+		time_zone = '+5:30',
+	)
+
+	def __init__(self):
+		pass
