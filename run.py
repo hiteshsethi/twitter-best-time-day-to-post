@@ -1,4 +1,4 @@
-#!flask/bin/python
+#!env/bin/python
 from gevent import monkey
 
 monkey.patch_all()  # for making server non-blocking, flask is by defualt blocking
