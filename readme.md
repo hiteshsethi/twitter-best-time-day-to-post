@@ -17,15 +17,18 @@
   env/bin/pip install -r requirements.txt
   ```
 4. add config.py
+
   ```bash
   cp config.sample config.py
   ```
   (change twitter credentials accordingly)
 5. make sure to setup PYTHONPATH correctly, go the project directory
+
     ```bash
   export PYTHONPATH='.'
   ```
 6. run server
+
     ```bash
   env/bin/python run.py
   ```
