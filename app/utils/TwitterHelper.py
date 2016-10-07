@@ -56,5 +56,5 @@ def getBestTimeAndDay(userIdOrName):
 
 
 if __name__ == "__main__":
-	print getBestTimeAndDay("hitesh28jan")
- 	print getBestTimeAndDay(1586015334)
+	print getBestTimeAndDay("hitesh28jan") #prints {'day': 'Thursday', 'time': 7}
+ 	print getBestTimeAndDay(1586015334) # prints {'day': 'Thursday', 'time': 7}
