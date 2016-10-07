@@ -6,7 +6,7 @@ from gevent import wsgi
 import config
 from werkzeug.serving import run_with_reloader
 from werkzeug.debug import DebuggedApplication
-from app import app
+from app import app #import our main app, containing various components
 
 """
 
