@@ -7,7 +7,7 @@ import config
 def _getTwitterApi():
 	auth = tweepy.OAuthHandler(config.CONSUMER_KEY, config.CONSUMER_SECRET)
 	auth.set_access_token(config.ACCESS_KEY, config.ACCESS_SECRET)
-	api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True, compression=True)
+	api = tweepy.API(auth, wait_on_rate_limit=False, wait_on_rate_limit_notify=True, compression=True)
 	return api
 
 
@@ -50,5 +50,5 @@ def getBestTimeAndDay(userIdOrName):
 
 
 if __name__ == "__main__":
-	print fetch_followers("hitesh28jan")
- 	print fetch_followers(1586015334)
+	print getBestTimeAndDay("hitesh28jan")
+ 	print getBestTimeAndDay(1586015334)

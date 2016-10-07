@@ -28,7 +28,7 @@ def bestTimeAndDay():
 
 		timeAndDay = TwitterHelper.getBestTimeAndDay(userIdOrName)
 
-		if timeAndDay is None or ("time" not in timeAndDay and "day" not in timeAndDay):
+		if timeAndDay is None or ("time" not in timeAndDay and "day" not in timeAndDay) or (timeAndDay["time"] == -1 and timeAndDay["day"] == ""):
 			raise Exception("Problem in fetching tweeter data")
 
 		responseData = {
