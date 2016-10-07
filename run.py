@@ -3,7 +3,7 @@ from gevent import monkey
 
 monkey.patch_all()  # for making server non-blocking, flask is by defualt blocking
 from gevent import wsgi
-from config import Config
+import config
 from werkzeug.serving import run_with_reloader
 from werkzeug.debug import DebuggedApplication
 from app import app
@@ -29,7 +29,7 @@ from app import app
 
 @run_with_reloader
 def runServer():
-	server = wsgi.WSGIServer((Config.host, Config.port),
+	server = wsgi.WSGIServer((config.HOST, config.PORT),
 							 DebuggedApplication(app))  # passing flask app(in debug mode) var in WSGI server by gevent
 	server.serve_forever()
 
