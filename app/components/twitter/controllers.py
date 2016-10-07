@@ -32,7 +32,7 @@ def bestTimeAndDay():
 			raise Exception("Problem in fetching tweeter data")
 
 		responseData = {
-			"time": str(timeAndDay["time"]) + ":00-" + str(timeAndDay["time"]) + ":59",
+			"time": str(timeAndDay["time"]) + ":00-" + str(timeAndDay["time"]) + ":59", #because it should be of the format 05:00-05:59
 			"day": timeAndDay["day"]
 		}
 		return jsonify({"success": True, "data": responseData})

@@ -11,6 +11,7 @@ def _getTwitterApi():
 	return api
 
 #this is our main function, takes one arg(can be userId, userName) and return dict(day,time) or None in case of overall error
+# Am taking only last tweet made by follower of the requested used in consideration
 def getBestTimeAndDay(userIdOrName):
 	resultDict = {"time": -1, "day": ""}
 	try:
