@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <style type="text/css">
         /* Styles go here */
         .loading-icon {
@@ -25,15 +26,43 @@
           position: absolute;
           top: 0; 
         }
+
+
+
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>Twitter Best Time/Day</h2>
-    
+    <div class="row thumbnail">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="userId">UserId:</label>
+                    <input type="text" name="userId" class="form-control" id="userId"
+                           placeholder="Enter Twitter User Id">
+                </div>
+            </div>
+            <div class="col-md-1">
+                <h6>OR</h6>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="userName">UserName:</label>
+                    <input type="text" name="userName" class="form-control" id="userName"
+                           placeholder="Enter Twitter User Name">
+                </div>
+            </div>
+
+        </div>
+        <div class="caption">
+            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+        </div>
+
+    </div>
     <div id='loadingmessage' style='display: none;'>
-      <div class="loading-icon"></div>
+        <div class="loading-icon"></div>
     </div>
     <div class="row thumbnail">
         <div class="col-md-12">
@@ -47,34 +76,34 @@
 <script>
 
     baseUrl = window.location.origin;
-
-    $("#search-btn").click(function(){
+    console.log(baseUrl);
+    $("#submitBtn").click(function(){
         $('#loadingmessage').show();
-        var king = $("input[name='king']").val();
-        var name = $("input[name='name']").val();
-        var location = $("input[name='location']").val();
-        var type = $("input[name='type']").val();
-        var params = {"king":king,"name":name,"location":location,"type":type};
-
-        $.get(baseUrl+"/search?"+jQuery.param(params), function(data, status){
+        var userId = $("input[name='userId']").val();
+        var userName = $("input[name='userName']").val();
+        if((userId != "" && userName != "") || (userId == "" && userName == "")){
+            $("#result").html("<h3>Invalid Input(Either both the fields are empty, or both are filled.)</h3>");
+            $('#loadingmessage').hide();
+                return;
+        }
+        $.post(baseUrl+"/twitter/api/bestTimeAndDay",JSON.stringify({
+            userId: userId,
+            userName: userName
+        }) ,function(data, status){
             if(status == false || data.success == false){
                 $("#result").html("<h3>Some Problem Occured</h3>");
                 return;
             }
-            resultData = '<ol>';
-            $.each(data.data,function( index, dataValue ) {
-                temp = '<ul>'
-                for (var key in dataValue) {
-                    // consodataValue[key]);/
-                   temp += "<li>"+" <i>"+key+ " </i>, <b>"+dataValue[key]+"</b></li>";
-                }
-                temp += "</ul>"
-                resultData += "<li>"+ temp +"</li>";
-            });
-            resultData += "</ol>"
+            resultData = '<ul>';
+            resultData += "<li> Best Day to Post "+data.data.day+"</li>";
+            resultData += "<li> Best Time to Post "+data.data.time+"</li>";
+            resultData += "</ul>"
             $("#result").html(resultData);
             $('#loadingmessage').hide();
         });
     });
+
+
+
 </script>
 </html>
